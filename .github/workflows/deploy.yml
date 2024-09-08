@@ -29,7 +29,7 @@ jobs:
       - name: Terraform Apply
         run: |
           cd terraform
-          terraform apply -auto-approve -var="bucket_name=your-unique-bucket-name" -var="domain_name=your-domain.com"
+          terraform apply -auto-approve -var="bucket_name=creetz-personal" -var="domain_name=creetz.com"
 
       - name: Deplyo to S3
         run: |
