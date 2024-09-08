@@ -4,8 +4,8 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias  = "us-east-2"
-  region = "us-east-2"
+  alias  = "us-east-1"
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "website_bucket" {
