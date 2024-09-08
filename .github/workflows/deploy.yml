@@ -23,12 +23,12 @@ jobs:
 
       - name: Terraform Init
         run: |
-          cd terraform
+          cd infra
           terraform init
 
       - name: Terraform Apply
         run: |
-          cd terraform
+          cd infra
           terraform apply -auto-approve -var="bucket_name=creetz-personal" -var="domain_name=creetz.com"
 
       - name: Deplyo to S3
