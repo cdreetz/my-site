@@ -60,7 +60,7 @@ resource "aws_s3_bucket_policy" "website_bucket_policy" {
 }
 
 resource "aws_acm_certificate" "cert" {
-  provider                  = aws.us-east-2
+  provider                  = aws.us-east-1
   domain_name               = var.domain_name
   subject_alternative_names = ["www.${var.domain_name}"]
   validation_method         = "DNS"
@@ -74,7 +74,7 @@ data "aws_acm_certificate" "existing_cert" {
   domain   = var.domain_name
   statuses = ["ISSUED"]
   most_recent = true
-  provider = aws.us-east-2
+  provider = aws.us-east-1
 }
 
 resource "aws_route53_zone" "main" {
