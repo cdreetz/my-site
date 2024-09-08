@@ -11,6 +11,7 @@ provider "aws" {
 resource "aws_s3_bucket" "website_bucket" {
   bucket = var.bucket_name
   provider = aws
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_website_configuration" "website_config" {
@@ -36,6 +37,7 @@ resource "aws_s3_bucket_public_access_block" "website_public_access" {
 
 resource "aws_s3_bucket_policy" "website_bucket_policy" {
   bucket = aws_s3_bucket.website_bucket.id
+  depends_on = [aws_s3_bucket_public_access_block.website_public_access]
 
   policy = jsonencode({
     Version = "2012-10-17"
