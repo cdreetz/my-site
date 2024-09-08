@@ -4,12 +4,13 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias  = "us-east-1"
-  region = "us-east-1"
+  alias  = "us-east-2"
+  region = "us-east-2"
 }
 
 data "aws_s3_bucket" "website_bucket" {
   bucket = var.bucket_name
+  provider = aws
 }
 
 resource "aws_s3_bucket_website_configuration" "website_config" {
@@ -51,7 +52,7 @@ resource "aws_s3_bucket_policy" "website_bucket_policy" {
 }
 
 resource "aws_acm_certificate" "cert" {
-  provider                  = aws.us-east-1
+  provider                  = aws.us-east-2
   domain_name               = var.domain_name
   subject_alternative_names = ["www.${var.domain_name}"]
   validation_method         = "DNS"
