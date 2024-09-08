@@ -33,7 +33,7 @@ jobs:
 
       - name: Deplyo to S3
         run: |
-          aws s3 sync website/ s3://your-unique-bucket-name --delete
+          aws s3 sync website/ s3://creetz-site --delete
 
       - name: Invalidate CloudFront
         run: |

@@ -53,7 +53,7 @@ resource "aws_s3_bucket_policy" "website_bucket_policy" {
 }
 
 resource "aws_acm_certificate" "cert" {
-  provider                  = aws.us-east-2
+  provider                  = aws.us-east-1
   domain_name               = var.domain_name
   subject_alternative_names = ["www.${var.domain_name}"]
   validation_method         = "DNS"
@@ -81,7 +81,7 @@ resource "aws_route53_record" "cert_validation" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = aws_route53_zone.zone_id
+  zone_id         = aws_route53_zone.main.zone_id
 }
 
 resource "aws_route53_record" "www" {
@@ -116,13 +116,13 @@ resource "aws_acm_certificate_validation" "cert" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = aws_s3_bucket_website_configuration.website_config.website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.website_config.website_domain
     origin_id   = "S3-${var.bucket_name}"
 
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "http-only"
+      origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
   }

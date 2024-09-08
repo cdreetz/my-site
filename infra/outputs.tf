@@ -13,3 +13,8 @@ output "certificate_validation_domains" {
   description = "Domain validation options for ACM certificate"
   value       = aws_acm_certificate.cert.domain_validation_options
 }
+
+output "cloudfront_distribution_id" {
+  description = "The ID of the CloudFront distribution"
+  value       = aws_cloudfront_distribution.s3_distribution.id
+}
