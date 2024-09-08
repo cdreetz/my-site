@@ -4,14 +4,16 @@ provider "aws" {
 }
 
 provider "aws" {
+  alias  = "us-east-1"
+  region = "us-east-1"
+}
+
+provider "aws" {
   alias  = "us-east-2"
   region = "us-east-2"
 }
 
-provider "aws" {
-  alias  = "us-east-1"
-  region = "us-east-1"
-}
+
 
 data "aws_s3_bucket" "website_bucket" {
   bucket = var.bucket_name
@@ -66,6 +68,13 @@ resource "aws_acm_certificate" "cert" {
   lifecycle {
     create_before_destroy = true
   }
+}
+
+data "aws_acm_certificate" "existing_cert" {
+  domain   = var.domain_name
+  statuses = ["ISSUED"]
+  most_recent = true
+  provider = aws.us-east-1
 }
 
 resource "aws_route53_zone" "main" {
@@ -165,7 +174,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cert.arn
+    acm_certificate_arn = data.aws_acm_certificate.existing_cert.arn
     ssl_support_method  = "sni-only"
   }
 }
