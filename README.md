@@ -1,3 +1,6 @@
+cd website
+aws s3 sync . s3://www.creetz.com
+
 # Personal Website DevOps Project
 
 This project sets up a personal website with multiple pages, hosted on AWS S3 and distributed via CloudFront, using Terraform for infrastructure management and GitHub Actions for continuous deployment.
@@ -117,11 +120,3 @@ This setup uses AWS services that may incur costs:
 - ACM (free for public certificates)
 
 Monitor your AWS billing dashboard to keep track of costs.
-
-## Contributing
-
-[Add your guidelines for contributions here]
-
-## License
-
-[Add your chosen license here]
