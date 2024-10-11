@@ -1,12 +1,49 @@
 <h1>audio question answering</h1>
-<p>notes on my plans and progress for an audio question answering pipeline for huggingface</p>
-<a href="https://github.com/huggingface/transformers/issues/33782">my initial AQA issue</a>
-<p>initial inspiration came from looking for an issue to work on and coming across the DocumentQuestionAnswering pipeline PR</p>
-<a href="https://github.com/huggingface/transformers/pull/18414">huggingface/transformers DocumentQuestionAnswering PR</a>
-<p>as the idea is very similar to DQA/VQA just with a new modality, i plan to reference DQA for a lot of this new PR</p>
-<p>------------------</p>
-<p>going to go through the DQA code and come up with a plan for how to implement AQA. it should be very similar with the difference being applying STT instead of OCR</p>
+<p>
+  notes on my plans and progress for an audio question answering pipeline for
+  huggingface
+</p>
+<a href="https://github.com/huggingface/transformers/issues/33782"
+  >my initial AQA issue</a
+>
+<p>
+  initial inspiration came from looking for an issue to work on and coming
+  across the DocumentQuestionAnswering pipeline PR
+</p>
+<a href="https://github.com/huggingface/transformers/pull/18414"
+  >huggingface/transformers DocumentQuestionAnswering PR</a
+>
+<p>
+  as the idea is very similar to DQA/VQA just with a new modality, i plan to
+  reference DQA for a lot of this new PR
+</p>
+<p>------------------update</p>
+<p>
+  going to go through the DQA code and come up with a plan for how to implement
+  AQA. it should be very similar with the difference being applying STT instead
+  of OCR
+</p>
 
+<p>------------------update</p>
+<p>
+  got most of audio_question_answering.py done but came across a problem while
+  updating other stuff related. so currently all SUPPORTED_TASKS outlined in
+  __init__ of pipelines
+</p>
+<p>
+  only define 1 pt and/or 1 tf default model, since most pipelines only use a
+  single model. while aqa relies on 2 models, one for the initial asr and then
+  one for qa.
+</p>
+<p>
+  ended up realizing that DQA while a 2 step process, only has a single default
+  model for qa since tesseract is used for ocr instead of a vision model
+</p>
+<p>
+  going to see what, if anything, needs to be updated so that SUPPORTED_TASKS
+  can support defining 2 default models.
+</p>
 
 <p>------------------</p>
 <a href="dir.html">directory</a>
+
